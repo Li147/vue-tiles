@@ -1,9 +1,11 @@
 <template>
-  <div ref="self"
-       :class="className"
-       :style="style"
-       @mousedown="mousedown"
-       @touchstart.stop="mousedown">
+  <div 
+    ref="self"
+    :class="className"
+    :style="style"
+    @mousedown="mousedown"
+    @touchstart.stop="mousedown"
+  >
     <slot/>
   </div>
 </template>

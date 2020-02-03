@@ -24,8 +24,9 @@
     </GridItem>
   </div>
 </template>
+
 <script>
-import windowSize from './mixins/window_size.js'
+import windowSize from '../mixins/window_size.js'
 import GridItem from './GridItem.vue'
 
 export default {
@@ -45,11 +46,11 @@ export default {
     },
     cellWidth: {
       type: Number,
-      default: 80,
+      default: 160,
     },
     cellHeight: {
       type: Number,
-      default: 80
+      default: 160
     },
     draggable: {
       type: Boolean,

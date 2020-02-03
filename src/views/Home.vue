@@ -1,30 +1,46 @@
 <template>
-  <grid>
+  <grid
+    :center="false"
     :draggable="true"
     :sortable="true"
-    :items="items"
-    :height="100"
-    :width="100">
-
-  <template slot="cell" scope="props">
-    <div>{{props.item}}</div>
-  </template>
-
+    :items="colors"
+    :height="160"
+    :width="160"
+    @change="change"
+    @remove="remove"
+    @click="click"
+    @sort="sort"
+  >
+    
+    <template slot="cell" scope="props">
+      <Icon :color="props.item"
+            :index="props.index"
+            :with-button="true"
+            @remove="props.remove()"/>
+    </template>
   </grid>
 </template>
 
 <script>
+import Grid from '../components/Grid.vue'
+import Icon from '../components/Icon.vue'
+import { generateRGBColors } from '../mixins/util.js'
+
 export default {
   name: 'Home',
+  components: {
+    Grid, Icon
+  },
   props: {
     msg: String
   },
 
   data () {
-    let words = [ 'red', 'apple', 'lemon']
+    let colors = generateRGBColors(50)
 
     return {
-      words
+      colors,
+      selected: null
     }
   },
 

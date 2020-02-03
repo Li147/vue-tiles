@@ -1,10 +1,14 @@
 <template>
-  <div class="icon" :style="style">
-    <div v-if="withButton"
-         class="icon-delete-btn"
-         @mousedown="remove"></div>
-    <slot>
-    </slot>
+  <div 
+    class="icon" 
+    :style="style"
+  >
+    <div 
+      v-if="withButton"
+      class="icon-delete-btn"
+      @mousedown="remove">
+    </div>
+    <slot></slot>
   </div>
 </template>
 
@@ -63,7 +67,7 @@ export default {
 @keyframes shake {
   from {
     transform: rotate(-4deg);
-  },
+  }
 
   to {
     transform: rotate(4deg);
@@ -74,8 +78,8 @@ export default {
   position: relative;
   background-color: transparent;
   margin: 14px;
-  height: 52px;
-  width: 52px;
+  height: 104px;
+  width: 104px;
 
   border-radius: 10px;
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);
