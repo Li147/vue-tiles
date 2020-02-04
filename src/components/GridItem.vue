@@ -6,7 +6,7 @@
     @mousedown="mousedown"
     @touchstart.stop="mousedown"
   >
-    <slot/>
+    <slot />
   </div>
 </template>
 

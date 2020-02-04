@@ -9,6 +9,7 @@
       @mousedown="remove">
     </div>
     <slot></slot>
+    <div>{{ index }}</div>
   </div>
 </template>
 

@@ -11,12 +11,13 @@
     @click="click"
     @sort="sort"
   >
-    
     <template slot="cell" scope="props">
-      <Icon :color="props.item"
-            :index="props.index"
-            :with-button="true"
-            @remove="props.remove()"/>
+      <Icon 
+        :color="props.item"
+        :index="props.index"
+        :with-button="true"
+        @remove="props.remove()"
+      />
     </template>
   </grid>
 </template>

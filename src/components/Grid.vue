@@ -14,7 +14,8 @@
               @dragstart="onDragStart"
               @dragend="onDragEnd"
               @drag="onDrag"
-              @click="click">
+              @click="click"
+    >
       <slot name="cell"
             :item="v.item"
             :index="v.index"
