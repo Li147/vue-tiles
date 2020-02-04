@@ -2,18 +2,19 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <div id="nav">
-      <router-link to="/">Home</router-link>
+      <router-link :to="{ name: 'home'}">Home</router-link>
+      <router-link :to="{name: 'vuetify'}">Vuetify</router-link>
     </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Home from './views/Home.vue'
 
 export default {
   name: 'app',
   components: {
-    Home
+    
   }
 }
 </script>
