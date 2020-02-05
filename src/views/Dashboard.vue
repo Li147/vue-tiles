@@ -19,12 +19,22 @@
       </v-col>
     </v-row>
    
-    <v-row>
+    <v-row v-intersect="showMoreContent">
       <v-col cols="8">
         <EmployeesTable :employees="employees" @select-employee="setEmployee" />
       </v-col>
       <v-col cols="4">
         <EventTimeline :timeline="timeline" />
+      </v-col>
+    </v-row>
+
+    <v-row v-if="loadNewContent">
+      <v-col>
+        <v-skeleton-loader
+          ref="skeleton"
+          type="table"
+          class="mx-auto"
+        ></v-skeleton-loader>
       </v-col>
     </v-row>
     
@@ -65,6 +75,7 @@ import statisticsData from '../data/statistics.json'
     },
     data () {
       return {
+        loadNewContent: false,
         employees: employeesData,
         sales: salesData,
         selectedEmployee: {
@@ -81,6 +92,9 @@ import statisticsData from '../data/statistics.json'
       this.snackbar = true
       this.selectedEmployee.name = event.name
       this.selectedEmployee.title = event.title
+      },
+      showMoreContent(entries) {
+        this.loadNewContent = entries[0].isIntersecting
       }
     }
   }
