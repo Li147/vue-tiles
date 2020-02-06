@@ -3,7 +3,6 @@
     :center="false"
     :draggable="true"
     :sortable="true"
-    :items="colors"
     :height="160"
     :width="160"
     @change="change"
@@ -11,39 +10,40 @@
     @click="click"
     @sort="sort"
   >
-    <template slot="cell" scope="props">
+    <!-- <template slot="cell" scope="props">
       <Icon 
         :color="props.item"
         :index="props.index"
         :with-button="true"
         @remove="props.remove()"
       />
-    </template>
+    </template> -->
   </grid>
 </template>
 
 <script>
 import Grid from '../components/Grid.vue'
-import Icon from '../components/Icon.vue'
-import { generateRGBColors } from '../mixins/util.js'
+// import Icon from '../components/Icon.vue'
+// import { generateRGBColors } from '../mixins/util.js'
 
 export default {
   name: 'Home',
   components: {
-    Grid, Icon
+    Grid, 
+    //Icon
   },
   props: {
     msg: String
   },
 
-  data () {
-    let colors = generateRGBColors(50)
+  // data () {
+  //   let colors = generateRGBColors(10)
 
-    return {
-      colors,
-      selected: null
-    }
-  },
+  //   return {
+  //     colors,
+  //     selected: null
+  //   }
+  // },
 
   methods: {
     click ({ items, index }) {

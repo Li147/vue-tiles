@@ -1,9 +1,9 @@
 <template>
   <div class="v-grid" :style="style">
-    <GridItem v-for="v in list"
-              :key="v.index"
-              :index="v.index"
-              :sort="v.sort"
+    <GridItem v-for="c in characters"
+              :key="c.symbol"
+              :index="c.index"
+              :sort="c.sort"
               :draggable="draggable"
               :drag-delay="dragDelay"
               :row-count="rowCount"
@@ -16,12 +16,19 @@
               @drag="onDrag"
               @click="click"
     >
-      <slot name="cell"
-            :item="v.item"
-            :index="v.index"
-            :sort="v.sort"
+      <!-- <slot name="cell"
+            :item="c.item"
+            :index="c.index"
+            :sort="c.sort"
             :remove="() => { removeItem(v) }">
-      </slot>
+      </slot> -->
+      <Icon 
+        :text="c.symbol"
+        :color="colors[0]"
+        :index="c.index"
+        :with-button="true"
+        @remove="removeItem(c)"
+      />
     </GridItem>
   </div>
 </template>
@@ -29,12 +36,15 @@
 <script>
 import windowSize from '../mixins/window_size.js'
 import GridItem from './GridItem.vue'
+import Icon from './Icon.vue'
+import EventService from '@/services/EventService.js'
+import { generateRGBColors } from '../mixins/util.js'
 
 export default {
   name: 'Grid',
   mixins: [windowSize],
   components: {
-    GridItem
+    GridItem, Icon
   },
   props: {
     items: {
@@ -55,7 +65,7 @@ export default {
     },
     draggable: {
       type: Boolean,
-      default: false
+      default: true
     },
     dragDelay: {
       type: Number,
@@ -63,7 +73,7 @@ export default {
     },
     sortable: {
        type: Boolean,
-       default: false
+       default: true
     },
     center: {
       type: Boolean,
@@ -71,14 +81,18 @@ export default {
     }
   },
   data () {
+    let colors = generateRGBColors(10)
     return {
-      list: []
+      list: [],
+      characters: [],
+      colors,
     }
   },
+  
   watch: {
     items: {
       handler: function (nextItems = []) {
-        this.list = nextItems.map((item, index) => {
+        this.characters = nextItems.map((item, index) => {
           return {
             item,
             index: index,
@@ -88,6 +102,16 @@ export default {
       },
       immediate: true
     }
+  },
+
+  created() {
+    EventService.getCharacters()
+      .then(response => {
+        this.characters = response.data
+      })
+      .catch(error => {
+        console.log('There was an error with fetching the data:', error.response)
+      })
   },
   computed: {
     gridResponsiveWidth () {
@@ -99,7 +123,7 @@ export default {
     },
 
     height () {
-      return Math.ceil(this.list.length / this.rowCount) *
+      return Math.ceil(this.characters.length / this.rowCount) *
         this.cellHeight
     },
 
@@ -115,7 +139,7 @@ export default {
 
     rowShift () {
       if (this.center) {
-        let contentWidth = this.list.length * this.cellWidth
+        let contentWidth = this.characters.length * this.cellWidth
         let rowShift = contentWidth < this.gridResponsiveWidth
           ? (this.gridResponsiveWidth - contentWidth) / 2
           : (this.gridResponsiveWidth % this.cellWidth) / 2
@@ -137,21 +161,18 @@ export default {
     },
     /* Returns sorted clone of "list" array */
     getListClone () {
-      return this.list
+      return this.characters
         .slice(0)
         .sort((a, b) => {
           return a.sort - b.sort
         })
-      //  .map(v => {
-      //    return { ...v.item }
-      //  })
     },
 
     removeItem ({ index }) {
-      let removeItem = this.list.find(v => v.index === index)
+      let removeItem = this.characters.find(v => v.index === index)
       let removeItemSort = removeItem.sort
 
-      this.list = this.list
+      this.characters = this.characters
         .filter(v => {
           return v.index !== index
         })
@@ -187,7 +208,7 @@ export default {
     },
 
     sortList (itemIndex, gridPosition) {
-      let targetItem = this.list.find(item => item.index === itemIndex)
+      let targetItem = this.characters.find(item => item.index === itemIndex)
       let targetItemSort = targetItem.sort
 
       /*
@@ -198,10 +219,10 @@ export default {
         If you remove this line you can drag items to positions that
         are further than items array length
       */
-      gridPosition = Math.min(gridPosition, this.list.length - 1)
+      gridPosition = Math.min(gridPosition, this.characters.length - 1)
 
       if (targetItemSort !== gridPosition) {
-        this.list = this.list.map(item => {
+        this.characters = this.characters.map(item => {
           if (item.index === targetItem.index) {
             return {
               ...item,

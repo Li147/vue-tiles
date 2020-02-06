@@ -3,13 +3,12 @@
     class="icon" 
     :style="style"
   >
+    {{ text }}
     <div 
       v-if="withButton"
       class="icon-delete-btn"
-      @mousedown="remove">
-    </div>
-    <slot></slot>
-    <div>{{ index }}</div>
+      @mousedown="remove"
+    />
   </div>
 </template>
 
@@ -17,6 +16,9 @@
 export default {
   name: 'Icon',
   props: {
+    text: {
+      type: String
+    },
     index: {
       type: Number
     },
@@ -46,7 +48,8 @@ export default {
         return {
           'background-color': background,
           'box-shadow': `0px 6px 20px ${shadow}`,
-          'color': this.brightness > 180 ? '#777' : '#f3f3f3'
+          'color': this.brightness > 180 ? '#777' : '#f3f3f3',
+          'font-size': `36px`
         }
       }
 
@@ -117,6 +120,10 @@ export default {
   animation-duration: 0.07s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+}
+
+.text {
+
 }
 
 </style>

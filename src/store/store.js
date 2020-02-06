@@ -4,19 +4,26 @@ import Vue from 'vue'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  // similar to data of a Vue instance
   state: {
     
   },
-  
-  getters: {
-    // Here we will create a getter
-  },
-  
+  // used to commit + track state changes
+  // best practice: use actions to call mutations to change the state
+  // mutations can be rolled back to do time-travel debugging
   mutations: {
-    // Here we will create Jenny
+  
   },
   
+  // actions can update the Vuex state
   actions: {
-    // Here we will create Larry
-  }
+    
+  },
+  // getters can access our state (similar to computed properties)
+  getters: {
+  
+  },
+  
+  
+  
 });
