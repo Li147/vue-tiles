@@ -23,7 +23,7 @@
             :remove="() => { removeItem(v) }">
       </slot> -->
       <Icon 
-        :text="c.symbol"
+        :text="c.item.symbol"
         :color="colors[0]"
         :index="c.index"
         :with-button="true"
@@ -107,7 +107,7 @@ export default {
   created() {
     EventService.getCharacters()
       .then(response => {
-        this.characters = response.data
+        this.items = response.data
       })
       .catch(error => {
         console.log('There was an error with fetching the data:', error.response)
