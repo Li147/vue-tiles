@@ -16,12 +16,6 @@
               @drag="onDrag"
               @click="click"
     >
-      <!-- <slot name="cell"
-            :item="c.item"
-            :index="c.index"
-            :sort="c.sort"
-            :remove="() => { removeItem(v) }">
-      </slot> -->
       <Icon 
         :text="c.item.symbol"
         :color="colors[0]"
@@ -37,7 +31,6 @@
 import windowSize from '../mixins/window_size.js'
 import GridItem from './GridItem.vue'
 import Icon from './Icon.vue'
-import EventService from '@/services/EventService.js'
 import { generateRGBColors } from '../mixins/util.js'
 
 export default {
@@ -102,16 +95,6 @@ export default {
       },
       immediate: true
     }
-  },
-
-  created() {
-    EventService.getCharacters()
-      .then(response => {
-        this.items = response.data
-      })
-      .catch(error => {
-        console.log('There was an error with fetching the data:', error.response)
-      })
   },
   computed: {
     gridResponsiveWidth () {

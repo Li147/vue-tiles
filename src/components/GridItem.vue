@@ -7,6 +7,7 @@
     @touchstart.stop="mousedown"
   >
     <slot />
+    <v-text-field></v-text-field>
   </div>
 </template>
 

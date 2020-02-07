@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="indigo" dark>
+    <v-app-bar app clipped-left color="indigo" dark>
       <img alt="Vue logo"  width="50" height="50" src="./assets/logo.png">
       <v-toolbar-title>Veutify Dashboard</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -62,5 +62,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.inline-block {
+  display: flex;
 }
 </style>

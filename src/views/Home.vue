@@ -1,49 +1,55 @@
 <template>
-  <grid
-    :center="false"
-    :draggable="true"
-    :sortable="true"
-    :height="160"
-    :width="160"
-    @change="change"
-    @remove="remove"
-    @click="click"
-    @sort="sort"
-  >
-    <!-- <template slot="cell" scope="props">
-      <Icon 
-        :color="props.item"
-        :index="props.index"
-        :with-button="true"
-        @remove="props.remove()"
+  <div>
+    <v-navigation-drawer permanent clipped app>
+      <info-card
+        :title="infoText"
       />
-    </template> -->
-  </grid>
+    </v-navigation-drawer>
+    <grid
+      :center="false"
+      :draggable="true"
+      :sortable="true"
+      :items="rawData"
+      :height="160"
+      :width="160"
+      @change="change"
+      @remove="remove"
+      @click="click"
+      @sort="sort"
+    />
+  </div>
 </template>
 
 <script>
 import Grid from '../components/Grid.vue'
-// import Icon from '../components/Icon.vue'
-// import { generateRGBColors } from '../mixins/util.js'
+import EventService from '@/services/EventService.js'
+import InfoCard from '../components/InfoCard.vue'
 
 export default {
   name: 'Home',
   components: {
-    Grid, 
-    //Icon
+    Grid, InfoCard
   },
   props: {
     msg: String
   },
 
-  // data () {
-  //   let colors = generateRGBColors(10)
+  data () {
+    return {
+      rawData: [],
+      infoText: 'HELLO'
+    }
+  },
 
-  //   return {
-  //     colors,
-  //     selected: null
-  //   }
-  // },
+  created() {
+    EventService.getCharacters()
+      .then(response => {
+        this.rawData = response.data
+      })
+      .catch(error => {
+        console.log('There was an error with fetching the data:', error.response)
+      })
+  },
 
   methods: {
     click ({ items, index }) {
