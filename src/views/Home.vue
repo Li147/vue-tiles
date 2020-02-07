@@ -3,6 +3,7 @@
     <v-navigation-drawer permanent clipped app>
       <info-card
         :title="infoText"
+        :text="userName"
       />
     </v-navigation-drawer>
     <grid
@@ -22,8 +23,9 @@
 
 <script>
 import Grid from '../components/Grid.vue'
-import EventService from '@/services/EventService.js'
+// import EventService from '@/services/EventService.js'
 import InfoCard from '../components/InfoCard.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
@@ -34,22 +36,36 @@ export default {
     msg: String
   },
 
-  data () {
-    return {
-      rawData: [],
-      infoText: 'HELLO'
-    }
-  },
+  // data () {
+  //   return {
+  //     rawData: [],
+  //   }
+  // },
 
+  computed: mapState({
+    userName: state => state.user.name,
+
+    rawData: state => state.chars,
+
+    infoText () {
+      return 'Hello ' + this.$store.state.user.name
+    }
+  }),
+
+  // created() {
+  //   EventService.getCharacters()
+  //     .then(response => {
+  //       this.rawData = response.data
+  //     })
+  //     .catch(error => {
+  //       console.log('There was an error with fetching the data:', error.response)
+  //     })
+  // },
   created() {
-    EventService.getCharacters()
-      .then(response => {
-        this.rawData = response.data
-      })
-      .catch(error => {
-        console.log('There was an error with fetching the data:', error.response)
-      })
+    this.$store.dispatch('updateData')
+    this.rawData = this.$store.state.chars
   },
+  
 
   methods: {
     click ({ items, index }) {
