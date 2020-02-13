@@ -1,18 +1,19 @@
 <template>
   <v-card>
-    <v-card-title> {{ title }} </v-card-title>
-    <v-card-text> {{ text }}, the total number of character is: {{ totalCharacters }} </v-card-text>
-    <v-text-field v-model="inputString" />
+    <v-card-title> {{ text }} </v-card-title>
+    <v-card-text> Total number of characters: {{ totalCharacters }} </v-card-text>
+    <v-text-field v-model="currentTile.string"/>
     <v-btn
-      @click="addString"  
+      @click="addTile"  
     >
     Add
     </v-btn>
-
   </v-card>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
   export default {
     props:{
       title: {
@@ -26,17 +27,39 @@
     },
     data() {
       return {
-        inputString: 'n/a'
+        currentTile: this.createFreshTileObject()
       }
     },
     computed: {
       totalCharacters() {
-        return this.$store.getters.charCount
-      }
+        return this.$store.getters['tile/charCount']
+      },
+      ...mapState([
+        'user', 'tile'
+      ])
     },
     methods: {
-      addString() {
-        this.$store.dispatch('updateString', this.inputString)
+      addTile() {
+        // dispatch the action the store
+        this.$store.dispatch('tile/updateTile', this.currentTile).then(() => {
+
+          //clears old data once api call is successful
+          this.currentTile = this.createFreshTileObject()
+        })
+        .catch(error => {
+          console.log('There was a problem adding your tile', error.response)
+        })
+      },
+      createFreshTileObject() {
+        const user = this.$store.state.user
+        const id = Math.floor(Math.random() * 100000000)
+        const currentTime = new Date().getTime()
+        return {
+          id: id,
+          string: '',
+          user: user,
+          time: currentTime,
+        }
       }
     }
   }

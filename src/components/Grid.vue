@@ -17,7 +17,7 @@
               @click="click"
     >
       <Icon 
-        :text="c.item.symbol"
+        :text="c.item.string"
         :color="colors[0]"
         :index="c.index"
         :with-button="true"
@@ -50,11 +50,11 @@ export default {
     },
     cellWidth: {
       type: Number,
-      default: 160,
+      default: 120,
     },
     cellHeight: {
       type: Number,
-      default: 160
+      default: 120
     },
     draggable: {
       type: Boolean,

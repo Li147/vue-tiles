@@ -15,7 +15,7 @@
       </v-btn>
       <v-btn @click="toggleTheme" text rounded>Toggle Theme</v-btn>
     </v-app-bar>
-    <v-content>
+    <v-content style="padding-top: 0px">
       <router-view></router-view>
     </v-content>
   </v-app>

@@ -2,7 +2,7 @@
   <div>
     <v-navigation-drawer permanent clipped app>
       <info-card
-        :title="infoText"
+        :title="userName"
         :text="userName"
       />
     </v-navigation-drawer>
@@ -11,8 +11,6 @@
       :draggable="true"
       :sortable="true"
       :items="rawData"
-      :height="160"
-      :width="160"
       @change="change"
       @remove="remove"
       @click="click"
@@ -23,7 +21,6 @@
 
 <script>
 import Grid from '../components/Grid.vue'
-// import EventService from '@/services/EventService.js'
 import InfoCard from '../components/InfoCard.vue'
 import { mapState } from 'vuex'
 
@@ -36,34 +33,23 @@ export default {
     msg: String
   },
 
-  // data () {
-  //   return {
-  //     rawData: [],
-  //   }
-  // },
+  // computed properties
+  computed: {
+    userName() {
+      return this.user.user.name
+    },
+    rawData() {
+      return this.tile.chars
+    },
+    // we use object spread operator so that we can also have LOCAl computed properties
+    ...mapState([
+      'user', 'tile'
+    ])
+  },
 
-  computed: mapState({
-    userName: state => state.user.name,
-
-    rawData: state => state.chars,
-
-    infoText () {
-      return 'Hello ' + this.$store.state.user.name
-    }
-  }),
-
-  // created() {
-  //   EventService.getCharacters()
-  //     .then(response => {
-  //       this.rawData = response.data
-  //     })
-  //     .catch(error => {
-  //       console.log('There was an error with fetching the data:', error.response)
-  //     })
-  // },
+  // When component is created, pull data from database (json file)
   created() {
-    this.$store.dispatch('updateData')
-    this.rawData = this.$store.state.chars
+    this.$store.dispatch('tile/updateData')
   },
   
 

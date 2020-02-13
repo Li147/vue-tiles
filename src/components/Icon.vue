@@ -81,7 +81,6 @@ export default {
 .icon {
   position: relative;
   background-color: transparent;
-  margin: 14px;
   height: 104px;
   width: 104px;
 

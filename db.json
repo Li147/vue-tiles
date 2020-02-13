@@ -1,16 +1,134 @@
 {
-    "characters": [
-        {
-            "symbol": "李",
-            "number": 1
-        },
-        {
-            "symbol": "安",
-            "number": 2
-        },
-        {
-            "symbol": "凡",
-            "number": 3
+  "characters": [
+    {
+      "id": 1,
+      "string": "李",
+      "number": 1
+    },
+    {
+      "id": 1,
+      "string": "安",
+      "number": 2
+    },
+    {
+      "id": 1,
+      "string": "凡",
+      "number": 3
+    },
+    {
+      "id": 80959504,
+      "string": "apple",
+      "user": {
+        "id": "abc123",
+        "name": "Anfan Li"
+      },
+      "time": 1581524662613
+    },
+    {
+      "id": 25621303,
+      "string": "sad",
+      "user": {
+        "id": "abc123",
+        "name": "Anfan Li"
+      },
+      "time": 1581529406377
+    },
+    {
+      "id": 72719841,
+      "string": "asd",
+      "user": {
+        "id": "abc123",
+        "name": "Anfan Li"
+      },
+      "time": 1581529409502
+    },
+    {
+      "id": 23027537,
+      "string": "sd",
+      "user": {
+        "user": {
+          "id": "123",
+          "name": "Anfan"
         }
-    ]
+      },
+      "time": 1581594971275
+    },
+    {
+      "id": 18337307,
+      "string": "sd",
+      "user": {
+        "user": {
+          "id": "123",
+          "name": "Anfan"
+        }
+      },
+      "time": 1581594972678
+    },
+    {
+      "id": 14124968,
+      "string": "",
+      "user": {
+        "user": {
+          "id": "123",
+          "name": "Anfan"
+        }
+      },
+      "time": 1581595072255
+    },
+    {
+      "id": 90392039,
+      "string": "sd",
+      "user": {
+        "user": {
+          "id": "123",
+          "name": "Anfan"
+        }
+      },
+      "time": 1581595239141
+    },
+    {
+      "id": 2676706,
+      "string": "",
+      "user": {
+        "user": {
+          "id": "123",
+          "name": "Anfan"
+        }
+      },
+      "time": 1581595245253
+    },
+    {
+      "id": 32188211,
+      "string": "sd",
+      "user": {
+        "user": {
+          "id": "123",
+          "name": "Anfan"
+        }
+      },
+      "time": 1581595254212
+    },
+    {
+      "id": 5601312,
+      "string": "sd",
+      "user": {
+        "user": {
+          "id": "123",
+          "name": "Anfan"
+        }
+      },
+      "time": 1581595341562
+    },
+    {
+      "id": 65694413,
+      "string": "as",
+      "user": {
+        "user": {
+          "id": "123",
+          "name": "Anfan"
+        }
+      },
+      "time": 1581610927610
+    }
+  ]
 }

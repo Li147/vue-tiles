@@ -7,7 +7,6 @@
     @touchstart.stop="mousedown"
   >
     <slot />
-    <v-text-field></v-text-field>
   </div>
 </template>
 
@@ -219,7 +218,9 @@ export default {
 
 <style>
 .v-grid-item-wrapper {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   box-sizing: border-box;
 

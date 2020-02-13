@@ -18,5 +18,12 @@ export default {
   // get a SINGLE event, by id
   getEvent(id) {
     return apiClient.get('/events/' + id)
+  },
+
+  // add a new thing to database
+  addTile(tile) {
+    return apiClient.post('/characters', tile)
   }
+
+
 }
