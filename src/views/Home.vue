@@ -1,10 +1,14 @@
 <template>
   <div>
-    <v-navigation-drawer permanent clipped app>
+    <v-navigation-drawer permanent clipped app color="#acacac">
       <info-card
         :title="userName"
         :text="userName"
       />
+      <v-btn
+        color="primary"
+        @click="showSnackbar"
+      >Show snackbar</v-btn>
     </v-navigation-drawer>
     <grid
       :center="false"
@@ -36,14 +40,14 @@ export default {
   // computed properties
   computed: {
     userName() {
-      return this.user.user.name
+      return this.user.email
     },
     rawData() {
       return this.tile.chars
     },
     // we use object spread operator so that we can also have LOCAl computed properties
     ...mapState([
-      'user', 'tile'
+      'user', 'tile', 'snackbar'
     ])
   },
 
@@ -54,6 +58,9 @@ export default {
   
 
   methods: {
+    showSnackbar () {
+      this.$store.dispatch('showSnackbar', {content: 'hi from snackbar', color: 'red'})
+    },
     click ({ items, index }) {
       let value = items.find(v => v.index === index)
       this.selected = value.item
@@ -75,7 +82,7 @@ export default {
 
 <style lang="scss">
 body {
-  background: #fafafa;
+  background: #acacac;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

@@ -1,56 +1,19 @@
 <template>
   <v-app>
-    <v-app-bar app clipped-left color="indigo" dark>
-      <img alt="Vue logo"  width="50" height="50" src="./assets/logo.png">
-      <v-toolbar-title>Veutify Dashboard</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        v-for="link in links"
-        :key="`${link.label}-header-link`"
-        text
-        rounded
-        :to="link.url"
-      >
-        {{ link.label }}
-      </v-btn>
-      <v-btn @click="toggleTheme" text rounded>Toggle Theme</v-btn>
-    </v-app-bar>
-    <v-content style="padding-top: 0px">
+    <top-header></top-header>
+    <v-content>
       <router-view></router-view>
+      
     </v-content>
+    <Snackbar/>
   </v-app>
 </template>
 <script>
-
+import Header from "./components/Header.vue"
+import Snackbar from "./components/Snackbar.vue"
 export default {
   name: 'app',
-  data () {
-    return {
-      links: [
-        {
-          label: 'Home',
-          url: '/'
-        },
-        {
-          label: 'Login',
-          url: '/login'
-        },
-        {
-          label: 'Dashboard',
-          url: '/dashboard'
-        },
-        {
-          label: 'Signup',
-          url: '/signup'
-        }
-      ]
-    }
-  },
-  methods: {
-    toggleTheme() {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
-    }
-  }
+  components: {'top-header': Header, Snackbar},
 }
 </script>
 

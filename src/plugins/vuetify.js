@@ -22,6 +22,6 @@ export default new Vuetify({
       }
       
     },
-    dark: true
+    dark: false
   },
 });
