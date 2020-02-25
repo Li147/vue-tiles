@@ -5,10 +5,6 @@
         :title="userName"
         :text="userName"
       />
-      <v-btn
-        color="primary"
-        @click="showSnackbar"
-      >Show snackbar</v-btn>
     </v-navigation-drawer>
     <grid
       :center="false"
@@ -40,10 +36,10 @@ export default {
   // computed properties
   computed: {
     userName() {
-      return this.user.email
+      return this.user.displayName
     },
     rawData() {
-      return this.tile.chars
+      return this.tile.tiles
     },
     // we use object spread operator so that we can also have LOCAl computed properties
     ...mapState([
@@ -53,7 +49,7 @@ export default {
 
   // When component is created, pull data from database (json file)
   created() {
-    this.$store.dispatch('tile/updateData')
+    this.$store.dispatch('tile/fetchTilesFirebase')
   },
   
 

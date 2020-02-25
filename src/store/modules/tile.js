@@ -1,37 +1,51 @@
-import EventService from '@/services/EventService.js'
+import firebase from '@/firebaseConfig.js'
 
 export const namespaced = true
 
 export const state = {
-  chars: []
+  chars: [],
+  tiles: []
 }
 // used to commit + track state changes
 // best practice: use actions to call mutations to change the state
 // mutations can be rolled back to do time-travel debugging
 export const mutations = {
   ADD_TILE(state, value) {
-    state.chars.push(value)
+    state.tiles.push(value)
   },
-  PULL_FROM_DATABASE(state, response){
-    state.chars = response.data
+  UPDATE_TILE_STATE(state, value) {
+    state.tiles = value
   }
 }
 
-// actions call mutations to change the Vuex state, actions are meant to be asynchronous
+// Use actions to make the backend API calls, then commit mutations to update local state
+// Actions are meant to be asynchronous
 export const actions = {
-  updateTile({ commit }, tile) {
-    // wait axios call to finish, THEN commit the changes
-    return EventService.addTile(tile).then(() => {
-      commit('ADD_TILE', tile)
-    })
+
+  // Requests data from firebase and updates local state
+  fetchTilesFirebase({commit}) {
+    return firebase.tileCollection
+      .where("creator", "==", "anfan")
+      .get()
+      .then(function(querySnapshot) {
+        var tiles = []
+        querySnapshot.forEach(function(doc) {
+          tiles.push(doc.data())
+          console.log(doc.id, " => ", doc.data())
+          commit('UPDATE_TILE_STATE', tiles)
+        })
+      })
+      .catch(function(error) {
+        console.log("Error getting documents: ", error)
+      })
   },
-  updateData() {
-    return EventService.getCharacters().then(response => {
-      this.commit('tile/PULL_FROM_DATABASE', response)
-    })
-    .catch(error => {
-      console.log('There was an error with fetching the data:', error.response)
-    })
+
+  addTileDatabase({commit}, tileData){
+    return firebase.tileCollection
+      .add(tileData)
+      .then(
+        commit('ADD_TILE', tileData)
+      )
   }
 }
 

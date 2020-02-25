@@ -1,6 +1,6 @@
 <template>
   <div class="v-grid" :style="style">
-    <GridItem v-for="c in characters"
+    <GridItem v-for="c in tiles"
               :key="c.symbol"
               :index="c.index"
               :sort="c.sort"
@@ -17,7 +17,7 @@
               @click="click"
     >
       <Icon 
-        :text="c.item.string"
+        :text="c.item.mainString"
         :color="colors[0]"
         :index="c.index"
         :with-button="true"
@@ -77,7 +77,7 @@ export default {
     let colors = generateRGBColors(10)
     return {
       list: [],
-      characters: [],
+      tiles: [],
       colors,
     }
   },
@@ -85,7 +85,7 @@ export default {
   watch: {
     items: {
       handler: function (nextItems = []) {
-        this.characters = nextItems.map((item, index) => {
+        this.tiles = nextItems.map((item, index) => {
           return {
             item,
             index: index,
@@ -106,7 +106,7 @@ export default {
     },
 
     height () {
-      return Math.ceil(this.characters.length / this.rowCount) *
+      return Math.ceil(this.tiles.length / this.rowCount) *
         this.cellHeight
     },
 
@@ -122,7 +122,7 @@ export default {
 
     rowShift () {
       if (this.center) {
-        let contentWidth = this.characters.length * this.cellWidth
+        let contentWidth = this.tiles.length * this.cellWidth
         let rowShift = contentWidth < this.gridResponsiveWidth
           ? (this.gridResponsiveWidth - contentWidth) / 2
           : (this.gridResponsiveWidth % this.cellWidth) / 2
@@ -144,7 +144,7 @@ export default {
     },
     /* Returns sorted clone of "list" array */
     getListClone () {
-      return this.characters
+      return this.tiles
         .slice(0)
         .sort((a, b) => {
           return a.sort - b.sort
@@ -152,10 +152,10 @@ export default {
     },
 
     removeItem ({ index }) {
-      let removeItem = this.characters.find(v => v.index === index)
+      let removeItem = this.tiles.find(v => v.index === index)
       let removeItemSort = removeItem.sort
 
-      this.characters = this.characters
+      this.tiles = this.tiles
         .filter(v => {
           return v.index !== index
         })
@@ -191,7 +191,7 @@ export default {
     },
 
     sortList (itemIndex, gridPosition) {
-      let targetItem = this.characters.find(item => item.index === itemIndex)
+      let targetItem = this.tiles.find(item => item.index === itemIndex)
       let targetItemSort = targetItem.sort
 
       /*
@@ -202,10 +202,10 @@ export default {
         If you remove this line you can drag items to positions that
         are further than items array length
       */
-      gridPosition = Math.min(gridPosition, this.characters.length - 1)
+      gridPosition = Math.min(gridPosition, this.tiles.length - 1)
 
       if (targetItemSort !== gridPosition) {
-        this.characters = this.characters.map(item => {
+        this.tiles= this.tiles.map(item => {
           if (item.index === targetItem.index) {
             return {
               ...item,
