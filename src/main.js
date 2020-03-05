@@ -9,12 +9,16 @@ import firebase from './firebaseConfig.js'
 Vue.config.productionTip = false
 
 // Observer - auth() object shows whether users or signed in or not
-firebase.auth.onAuthStateChanged(user => {
+firebase.auth.onAuthStateChanged(function(user) {
   // user is signed in
   if (user) {
-    store.dispatch("login", user);
+    store.dispatch("login", user)
+      .then(() => {
+        // If login successfull, pull files from database
+        store.dispatch('tile/fetchTilesFirebase')
+      })
   } else {
-    store.dispatch("logout")
+    console.log('hello from the else condition')
   }
 })
 

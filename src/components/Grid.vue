@@ -74,26 +74,11 @@ export default {
     }
   },
   data () {
-    let colors = generateRGBColors(10)
+    let colors = generateRGBColors(1)
     return {
       list: [],
       tiles: [],
       colors,
-    }
-  },
-  
-  watch: {
-    items: {
-      handler: function (nextItems = []) {
-        this.tiles = nextItems.map((item, index) => {
-          return {
-            item,
-            index: index,
-            sort: index
-          }
-        })
-      },
-      immediate: true
     }
   },
   computed: {
@@ -131,6 +116,21 @@ export default {
       }
 
       return 0
+    }
+  },
+
+  watch: {
+    items: {
+      handler: function (nextItems = []) {
+        this.tiles = nextItems.map((item, index) => {
+          return {
+            item,
+            index: index,
+            sort: index
+          }
+        })
+      },
+      immediate: true
     }
   },
   methods: {

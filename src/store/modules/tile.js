@@ -3,7 +3,6 @@ import firebase from '@/firebaseConfig.js'
 export const namespaced = true
 
 export const state = {
-  chars: [],
   tiles: []
 }
 // used to commit + track state changes
@@ -23,17 +22,21 @@ export const mutations = {
 export const actions = {
 
   // Requests data from firebase and updates local state
-  fetchTilesFirebase({commit}) {
+  fetchTilesFirebase({commit, rootState}) {
+
+    var currentUserEmail = rootState.user.email
+    console.log(currentUserEmail)
+
     return firebase.tileCollection
-      .where("creator", "==", "anfan")
+      .where("userEmail", "==", currentUserEmail)
       .get()
       .then(function(querySnapshot) {
         var tiles = []
         querySnapshot.forEach(function(doc) {
           tiles.push(doc.data())
-          console.log(doc.id, " => ", doc.data())
-          commit('UPDATE_TILE_STATE', tiles)
+          //console.log(doc.id, " => ", doc.data())
         })
+        commit('UPDATE_TILE_STATE', tiles)
       })
       .catch(function(error) {
         console.log("Error getting documents: ", error)
@@ -52,6 +55,6 @@ export const actions = {
 // getters can access our state (similar to computed properties)
 export const getters = {
   charCount: state => {
-    return state.chars.length
+    return state.tiles.length
   }
 }

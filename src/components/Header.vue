@@ -1,5 +1,10 @@
 <template>
-  <v-app-bar app clipped-left color="indigo" dark>
+  <v-app-bar 
+    app 
+    clipped-left 
+    color="indigo" 
+    dark
+  >
     <img alt="Vue logo"  width="50" height="50" src="../assets/logo.png">
     <v-toolbar-title>Veutify Dashboard</v-toolbar-title>
     <v-spacer></v-spacer>
@@ -12,6 +17,7 @@
     >
       {{ link.label }}
     </v-btn>
+
     <v-btn
       v-if="!loggedIn"
       :key="`${'Login'}-header-link`"
@@ -19,14 +25,35 @@
       rounded
       :to="'/login'"
     >Login</v-btn>
-    <v-icon x-large="">mdi-account-circle-outline</v-icon>
-    <v-btn
-      class="mx-4"
+
+    <v-menu
       v-if="loggedIn"
-      @click="signOut"
-    >Logout
-      <v-icon right>mdi-logout</v-icon>
-    </v-btn>
+      transition="slide-y-transition"
+      :offset-y="true"
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          icon
+          color="white"
+          v-on="on"
+        >
+          <v-icon x-large="">mdi-account-circle-outline</v-icon>
+        </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item>
+          <v-btn
+            v-if="loggedIn"
+            class="mx-4"
+            @click="signOut"
+          >
+            Logout
+            <v-icon right>mdi-logout</v-icon>
+          </v-btn>
+        </v-list-item>
+      </v-list>
+    </v-menu>
   </v-app-bar>
 </template>
 

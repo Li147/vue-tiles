@@ -1,11 +1,11 @@
 <template>
   <div>
     <v-navigation-drawer permanent clipped app color="#acacac">
-      <info-card
+    </v-navigation-drawer>
+    <info-card
         :title="userName"
         :text="userName"
       />
-    </v-navigation-drawer>
     <grid
       :center="false"
       :draggable="true"
@@ -46,12 +46,6 @@ export default {
       'user', 'tile', 'snackbar'
     ])
   },
-
-  // When component is created, pull data from database (json file)
-  created() {
-    this.$store.dispatch('tile/fetchTilesFirebase')
-  },
-  
 
   methods: {
     showSnackbar () {
